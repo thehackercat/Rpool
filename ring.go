@@ -6,9 +6,9 @@ import (
 )
 
 type Ring struct {
-	imp *ring.Ring
-	sync.Mutex
+	imp   *ring.Ring
 	count int
+	sync.Mutex
 }
 
 func (r *Ring) Len() int {
@@ -42,4 +42,8 @@ func (r *Ring) Pop() (conn RConnection) {
 		r.count -= 1
 	}
 	return
+}
+
+func NewRing() *Ring {
+	return &Ring{imp: ring.New(0)}
 }
