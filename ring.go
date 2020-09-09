@@ -24,7 +24,7 @@ func (r *Ring) Push(conn RConnection) {
 	} else {
 		r.imp.Link(_ring)
 	}
-	r.count += 1
+	r.count++
 }
 
 func (r *Ring) Pop() (conn RConnection) {
@@ -39,7 +39,7 @@ func (r *Ring) Pop() (conn RConnection) {
 			t.Unlink(1)
 			r.imp = t
 		}
-		r.count -= 1
+		r.count--
 	}
 	return
 }
