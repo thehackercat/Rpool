@@ -24,8 +24,6 @@ type RPool interface {
 	SetDescription(string)
 	GetVersion() int64
 	IncrVersion()
-	SetNotifyFile(string)
-	GetNotifyFile() string
 	SetConnExpire(time.Duration)
 	SetConnMaxUsage(int64)
 	SetDropConnThreshold(float64)
@@ -41,7 +39,6 @@ type Pool struct {
 	description       string
 	payload           interface{}
 	version           int64
-	notifyFile        string
 	factory           func(RPool) (RConnection, error)
 	connMaxUsage      int64
 	connExpire        time.Duration
@@ -94,14 +91,6 @@ func (pool *Pool) GetPayload() interface{} {
 }
 func (pool *Pool) SetPayload(payload interface{}) {
 	pool.payload = payload
-}
-
-func (pool *Pool) GetNotifyFile() string {
-	return pool.notifyFile
-}
-
-func (pool *Pool) SetNotifyFile(file string) {
-	pool.notifyFile = file
 }
 
 func (pool *Pool) IncrVersion() {
