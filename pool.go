@@ -2,6 +2,7 @@ package pool
 
 import (
 	"errors"
+	"fmt"
 	"math/rand"
 	"sync/atomic"
 	"time"
@@ -105,7 +106,7 @@ func (pool *Pool) SetNotifyFile(file string) {
 }
 
 func (pool *Pool) IncrVersion() {
-	pool.version += 1
+	pool.version++
 }
 
 func (pool *Pool) GetVersion() int64 {
@@ -117,7 +118,8 @@ func (pool *Pool) Acquire() (conn RConnection, err error) {
 		if atomic.LoadInt32(&pool.usage) >= int32(pool.limit) {
 			err = ErrExceedMaxPoolLimit
 		} else if conn, err = pool.factory(pool); err != nil {
-			onimaru.DAEReport(onimaru.ERROR, err, "failed create new connection", nil)
+			fmt.Printf("failed create new connection", err.Error())
+			return
 		}
 		if err == nil {
 			atomic.AddInt32(&pool.usage, 1)

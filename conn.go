@@ -21,7 +21,7 @@ type RConnection interface {
 
 type Connection struct {
 	client     interface{}
-	pool       IPool
+	pool       RPool
 	usage      int64
 	session    interface{}
 	_close     func() error
@@ -35,7 +35,7 @@ func (conn *Connection) GetUsage() int64 {
 	return conn.usage
 }
 
-func (conn *Connection) GetPool() IPool {
+func (conn *Connection) GetPool() RPool {
 	return conn.pool
 }
 
@@ -60,7 +60,7 @@ func (conn *Connection) GetCreateTime() time.Time {
 }
 
 func (conn *Connection) IncrUsage() {
-	conn.usage += 1
+	conn.usage++
 }
 
 func (conn *Connection) Close() error {
@@ -102,5 +102,10 @@ func (conn *Connection) HandleReset(reset func() error) {
 }
 
 func NewConnection(pool RPool, client interface{}, version int64) *Connection {
-	return &Connection{client: client, pool: pool, version: version, createTime: time.Now()}
+	return &Connection{
+		client: client,
+		pool: pool,
+		version: version,
+		createTime: time.Now()
+	}
 }
