@@ -2,7 +2,7 @@ package pool
 
 type Client struct {
 	Service string
-	Pool    IPool
+	Pool    RPool
 }
 
 func (c *Client) GetClient() (client interface{}, df func(), err error) {

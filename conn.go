@@ -103,9 +103,9 @@ func (conn *Connection) HandleReset(reset func() error) {
 
 func NewConnection(pool RPool, client interface{}, version int64) *Connection {
 	return &Connection{
-		client: client,
-		pool: pool,
-		version: version,
-		createTime: time.Now()
+		client:     client,
+		pool:       pool,
+		version:    version,
+		createTime: time.Now(),
 	}
 }

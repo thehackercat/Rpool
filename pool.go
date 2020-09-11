@@ -26,7 +26,6 @@ type RPool interface {
 	IncrVersion()
 	SetNotifyFile(string)
 	GetNotifyFile() string
-	StartINotifyService()
 	SetConnExpire(time.Duration)
 	SetConnMaxUsage(int64)
 	SetDropConnThreshold(float64)
