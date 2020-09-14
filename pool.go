@@ -18,8 +18,6 @@ type RPool interface {
 	Release(RConnection)
 	GetPayload() interface{}
 	SetPayload(interface{})
-	SetLimit(int)
-	GetLimit() int
 	GetDescription() string
 	SetDescription(string)
 	GetVersion() int64
@@ -29,6 +27,7 @@ type RPool interface {
 	SetDropConnThreshold(float64)
 	Len() int
 	Capacity() int
+	SetCapacity(int)
 }
 
 type Pool struct {
@@ -46,6 +45,11 @@ type Pool struct {
 	statistics        *Statistics
 }
 
+type Statistics struct {
+	ReleaseCount int64
+	AcquireCount int64
+}
+
 func (pool *Pool) Capacity() int {
 	return pool.limit
 }
@@ -54,11 +58,7 @@ func (pool *Pool) Len() int {
 	return pool.free.Len()
 }
 
-func (pool *Pool) GetLimit() int {
-	return pool.limit
-}
-
-func (pool *Pool) SetLimit(limit int) {
+func (pool *Pool) SetCapacity(limit int) {
 	pool.limit = limit
 }
 
